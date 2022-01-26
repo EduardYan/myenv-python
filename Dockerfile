@@ -3,7 +3,7 @@ FROM python:alpine3.15
 
 # dependencies globals
 RUN apk add --no-cache gcc musl-dev linux-headers \
-    libffi-dev sqlite git curl tmux vim && pip install --upgrade pip
+    libffi-dev sqlite git curl python3-tkinter tmux vim && pip install --upgrade pip
 
 # modules for use in python
 RUN pip install Flask SQLAlchemy rich colorama \
