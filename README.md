@@ -8,5 +8,5 @@ __A enviroment for work with python. Using Alpine as OS. With modules as flask, 
 docker run -it eduarddan/myenv-python
 ```
 
-## Errors or Bugs.
+## Errors or Problems.
 <a href="mailto:eduarygp@gmail.com">Contact Me</a>
