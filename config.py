@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """
 This script make 
 some configurations for vim.
