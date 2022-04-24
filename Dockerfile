@@ -2,19 +2,27 @@
 FROM python:alpine3.15
 
 # dependencies globals
-RUN apk add --no-cache gcc musl-dev linux-headers \
-    libffi-dev sqlite git curl python3-tkinter tmux vim && pip install --upgrade pip
+RUN apk add --no-cache build-base ncurses-dev py3-distutils-extra musl-dev linux-headers \
+    libffi-dev sqlite git curl python3-tkinter tmux \
+    && pip install --upgrade pip
 
 # modules for use in python
 RUN pip install Flask SQLAlchemy rich colorama \
     ipython bcrypt requests
 
-# configuration for vim
+# build vim editor
+RUN git clone https://github.com/vim/vim \
+    && cd vim/src \
+    && ./configure --prefix=/usr --with-python3-config-dir=/usr/lib/python3.9/config-3.9-x86_64-linux-musl \
+      --enable-python3interp \
+    && make && make install
+
 WORKDIR /root/
-COPY vim .
-RUN mkdir .vim && mv maps.vim plugins.vim .vim \
-    && curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+COPY . .
+
+# configuration for vim
+RUN python3 config.py
+
 
 # shell launching
 CMD ["/bin/sh"]
